@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <!-- Верхний ряд кнопок: connect и disconnect, деление 50% -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
+                android:id="@+id/btn_connect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CONNECT"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+
+        <Button
+                android:id="@+id/btn_disconnect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="DISCONNECT"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+    </LinearLayout>
+
+    <!-- Второй ряд кнопок: on и off, деление 50% -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
+                android:id="@+id/btn_on"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ON"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+
+        <Button
+                android:id="@+id/btn_off"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="OFF"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+    </LinearLayout>
+
+    <!-- Пространство между верхними кнопками и кнопками управления -->
+    <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+    <!-- Навигационные кнопки (стрелки), занимают 33% от оставшегося свободного пространства -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <!-- Стрелка вверх -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <ImageButton
+                    android:id="@+id/btn_up"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_baseline_arrow_upward_40"
+                    android:tint="@color/colorBlack"
+                    android:layout_margin="8dp"
+                    android:contentDescription="up" />
+
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- Стрелки влево и вправо -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+            <ImageButton
+                    android:id="@+id/btn_left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_baseline_chevron_left_40"
+                    android:tint="@color/colorBlack"
+                    android:layout_margin="8dp"
+                    android:contentDescription="left" />
+
+            <!-- Пустое пространство между кнопками -->
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+
+            <ImageButton
+                    android:id="@+id/btn_right"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_baseline_chevron_right_40"
+                    android:tint="@color/colorBlack"
+                    android:layout_margin="8dp"
+                    android:contentDescription="right" />
+        </LinearLayout>
+
+        <!-- Стрелка вниз -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+
+            <ImageButton
+                    android:id="@+id/btn_down"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_baseline_arrow_downward_40"
+                    android:tint="@color/colorBlack"
+                    android:layout_margin="8dp"
+                    android:contentDescription="down" />
+
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
