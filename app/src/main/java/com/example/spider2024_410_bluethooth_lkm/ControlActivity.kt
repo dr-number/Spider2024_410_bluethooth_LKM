@@ -1,5 +1,6 @@
 package com.example.spider2024_410_bluethooth_lkm;
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -38,6 +39,7 @@ class ControlActivity: AppCompatActivity(){
         btn_left.setOnClickListener{sendCommand("c")}
         btn_right.setOnClickListener { sendCommand("d") }
         btn_disconnect.setOnClickListener{ disconnect() }
+        btn_connect.setOnClickListener{ ConnectToDevice(this).execute() }
 
     }
 
@@ -46,6 +48,7 @@ class ControlActivity: AppCompatActivity(){
             try{
                 m_bluetoothSocket!!.outputStream.write(input.toByteArray())
             }catch(e: IOException){
+                Toast.makeText(this, "Error send command!", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
         }
@@ -59,13 +62,14 @@ class ControlActivity: AppCompatActivity(){
                 m_isConnected = false
             }catch(e: IOException){
                 e.printStackTrace()
+                Toast.makeText(this, "Error disconnect!", Toast.LENGTH_SHORT).show()
             }
         }
         finish()
     }
 
     private class ConnectToDevice(c: Context) : AsyncTask<Void, Void, String>(){
-        private var connectSucess: Boolean = true
+        private var connectSucess: Boolean = false
         private val context: Context
 
         init{
@@ -85,7 +89,7 @@ class ControlActivity: AppCompatActivity(){
                     m_bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(m_myUUID)
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
                     m_bluetoothSocket!!.connect()
-
+                    connectSucess = true
                 }
             }catch (e: IOException){
                 connectSucess = false
@@ -100,6 +104,7 @@ class ControlActivity: AppCompatActivity(){
                 Log.i("data", "couldn't connect")
                 Toast.makeText(context, "couldn't connect", Toast.LENGTH_SHORT).show()
             }else{
+                Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
                 m_isConnected = true
             }
             m_progress.dismiss()

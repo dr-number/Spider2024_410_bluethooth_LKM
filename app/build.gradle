@@ -11,6 +11,14 @@ ext {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\AndroidStudioProjects\\Spider2024_410_bluethooth_LKM\\keys\\spider_410.jks')
+            storePassword 'spider_LKM'
+            keyPassword 'spider_LKM'
+            keyAlias 'MyAndroidSpider'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
