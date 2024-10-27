@@ -236,7 +236,7 @@ void setup() {
   locomotion(stand);
   randomSeed(analogRead(0));
   cur_time = prev_time = millis();
-//  prev_action = action = SLEEP; //Было FORWARD
+  prev_action = action = SLEEP; //Было FORWARD
   delay(3000);
 }
 
@@ -413,6 +413,8 @@ void loop() {
       case STAND:
         robot_stand();
         //locomotion(stand);
+        action = '\0';
+        prev_action = '\0';
         break;
 
      case ROBOT_SLEEP:
