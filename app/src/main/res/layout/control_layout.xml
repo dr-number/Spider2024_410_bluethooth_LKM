@@ -40,20 +40,20 @@
             android:weightSum="2">
 
         <Button
-                android:id="@+id/btn_on"
+                android:id="@+id/btn_stand"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ON"
+                android:text="Stand"
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
 
         <Button
-                android:id="@+id/btn_off"
+                android:id="@+id/btn_vverh"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="OFF"
+                android:text="VVERH"
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
     </LinearLayout>
@@ -85,7 +85,7 @@
                 android:visibility="invisible" />
 
             <ImageButton
-                    android:id="@+id/btn_up"
+                    android:id="@+id/btn_forward"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -152,7 +152,7 @@
                     android:visibility="invisible" />
 
             <ImageButton
-                    android:id="@+id/btn_down"
+                    android:id="@+id/btn_back"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
