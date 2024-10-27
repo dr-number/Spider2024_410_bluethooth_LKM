@@ -14,7 +14,9 @@ SoftwareSerial mySerial(11, 12); // RX, TX Пины для блютуз моду
 #define STANDD 'G'
 #define SLEEP 'K'
 #define NACL_VNIZ 'E'
-#define NACL_VVERH 'R'
+//#define NACL_VVERH 'R'
+
+#define ROBOT_SLEEP 'R'
 
 //#define LEG_0 'k'
 //#define LEG_1 'i'
@@ -34,7 +36,7 @@ char comands [11] = {
   STANDD,
   SLEEP,
   NACL_VNIZ,
-  NACL_VVERH,
+  ROBOT_SLEEP,
   CONTROL_OFF,
   CONTROL_ON,
 };
@@ -238,7 +240,7 @@ void setup() {
   delay(3000);
 }
 
-void robot_stop(){
+void robot_sleep(){
   locomotion(stand);
   prev_action = action = SLEEP;
 }
@@ -333,7 +335,8 @@ void loop() {
         }
         locomotion(right);
         break;
-        
+
+       /*
        case NACL_VNIZ: if (action != prev_action) {
          if(prev_action != NACL_VVERH){
          //locomotion(stand);
@@ -374,7 +377,7 @@ void loop() {
         delay(50);                        
        }
        break;
-       
+       */
        //case LEG_1: if (action != prev_action) {
        //   prev_action = action;
        //   locomotion(stand);
@@ -408,12 +411,18 @@ void loop() {
         break;
         
       case STAND:
-        locomotion(stand);
+        robot_stand();
+        //locomotion(stand);
+        break;
+
+     case ROBOT_SLEEP:
+        robot_sleep();
+        //locomotion(stand);
         break;
       
-      case STANDD:
-        locomotion(stand);
-        break;
+//      case STANDD:
+//        locomotion(stand);
+//        break;
     }
   }
 

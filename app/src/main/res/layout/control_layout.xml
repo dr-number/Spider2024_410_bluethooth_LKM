@@ -49,11 +49,36 @@
                 android:layout_margin="8dp" />
 
         <Button
-                android:id="@+id/btn_vverh"
+                android:id="@+id/btn_sleep"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="VVERH"
+                android:text="Sleep"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
+                android:id="@+id/btn_control_on"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="control on"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+
+        <Button
+                android:id="@+id/btn_control_off"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="control off"
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
     </LinearLayout>

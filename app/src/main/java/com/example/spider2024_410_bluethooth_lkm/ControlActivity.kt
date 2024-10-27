@@ -47,8 +47,15 @@ class ControlActivity: AppCompatActivity(){
         btn_stand.setOnClickListener {
             sendCommand("F") // Начать выполнение команды при нажатии кнопки
         }
-        btn_vverh.setOnClickListener {
+        btn_sleep.setOnClickListener {
             sendCommand("R") // Начать выполнение команды при нажатии кнопки
+        }
+
+        btn_control_on.setOnClickListener {
+            sendCommand("M") // Начать выполнение команды при нажатии кнопки
+        }
+        btn_control_off.setOnClickListener {
+            sendCommand("P") // Начать выполнение команды при нажатии кнопки
         }
 
 
