@@ -193,6 +193,10 @@ unsigned long cur_time, prev_time;
 char action = '\0';
 char prev_action = '\0';
 boolean auto_mode = false; // Сменить на true, есле нужен авто-режим сразу после включения
+unsigned long lastReceivedTime; // Время последнего принятого действия
+
+static int stepCount = 0;
+static int turnCount = 0;
 
 void setup() {
   Serial.begin(9600); 
@@ -237,7 +241,31 @@ void setup() {
   randomSeed(analogRead(0));
   cur_time = prev_time = millis();
   prev_action = action = SLEEP; //Было FORWARD
+
+  lastReceivedTime = millis(); // Инициализируем время последнего принятого действия
   delay(3000);
+}
+
+void waySqware(){
+  if (stepCount < 5) {
+      action = FORWARD;  // Идём вперед
+      locomotion(forward);
+      stepCount++;
+    } else {
+      action = LEFT;  // Поворот налево после 5 шагов
+      locomotion(left);
+      stepCount = 0;  // Сбрасываем счетчик шагов после поворота
+      turnCount++;
+    }
+
+    if (turnCount == 4) {
+      turnCount = 0;  // Сбрасываем повороты после прохождения квадрата
+//      auto_mode = false;  // Останавливаемся после завершения маршрута квадрата
+      prev_action = action = SLEEP;
+      Serial.println("Square path complete");
+    }
+
+    delay(300);  
 }
 
 void robot_sleep(){
@@ -287,15 +315,22 @@ void loop() {
     }
   }
 
+//  if (!auto_mode && millis() - lastReceivedTime >= TIMEOUT) { // Проверка на потерю соединения
+//    Serial.println("Bluetooth connection lost");
+//    robot_stand(); // Переводим робота в безопасное состояние
+//    action = SLEEP; // Останавливаем любые действия робота
+//  }
+
   if (auto_mode) {
-    cur_time = millis();
-    if (cur_time - prev_time >= TIMEOUT) {
-      prev_time = cur_time;
-      do {
-        action = (int)random(FORWARD, BACKWARD + 1);
-      } while (action == prev_action || action == STAND);
-      Serial.println(action);
-    }
+    waySqware();
+//    cur_time = millis();
+//    if (cur_time - prev_time >= TIMEOUT) {
+//      prev_time = cur_time;
+//      do {
+//        action = (int)random(FORWARD, BACKWARD + 1);
+//      } while (action == prev_action || action == STAND);
+//      Serial.println(action);
+//    }
   }
 
   if (1) {
