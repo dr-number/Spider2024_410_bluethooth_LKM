@@ -192,10 +192,11 @@ Servo servo[8];
 unsigned long cur_time, prev_time;
 char action = '\0';
 char prev_action = '\0';
-boolean auto_mode = false; // Сменить на true, есле нужен авто-режим сразу после включения
+boolean auto_mode = true; // Сменить на true, есле нужен авто-режим сразу после включения
 unsigned long lastReceivedTime; // Время последнего принятого действия
 
 static int stepCount = 0;
+static int stepTotal = 0;
 static int turnCount = 0;
 
 void setup() {
@@ -251,18 +252,23 @@ void waySqware(){
       action = FORWARD;  // Идём вперед
       locomotion(forward);
       stepCount++;
+      stepTotal++;
     } else {
       action = LEFT;  // Поворот налево после 5 шагов
       locomotion(left);
-      stepCount = 0;  // Сбрасываем счетчик шагов после поворота
+      //stepCount = 0;  // Сбрасываем счетчик шагов после поворота
       turnCount++;
     }
 
-    if (turnCount == 4) {
-      turnCount = 0;  // Сбрасываем повороты после прохождения квадрата
-//      auto_mode = false;  // Останавливаемся после завершения маршрута квадрата
-      prev_action = action = SLEEP;
-      Serial.println("Square path complete");
+    if (turnCount == 8) {
+      stepCount = 0;  // Сбрасываем повороты после прохождения квадрата
+      turnCount = 0;
+    }
+
+    if (stepTotal == 20){
+       auto_mode = false;  // Останавливаемся после завершения маршрута квадрата
+       prev_action = action = SLEEP;
+       Serial.println("Square path complete");
     }
 
     delay(300);  
@@ -497,5 +503,5 @@ void locomotion(angle_t angles[]) {
      // Serial.println();
     
   }
-  delay(1000);
+  delay(500);
 }
