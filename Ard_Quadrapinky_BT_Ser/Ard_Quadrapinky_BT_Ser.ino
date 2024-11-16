@@ -192,7 +192,7 @@ Servo servo[8];
 unsigned long cur_time, prev_time;
 char action = '\0';
 char prev_action = '\0';
-boolean auto_mode = true; // Сменить на true, есле нужен авто-режим сразу после включения
+boolean auto_mode = false; // Сменить на true, есле нужен авто-режим сразу после включения
 unsigned long lastReceivedTime; // Время последнего принятого действия
 
 static int stepCount = 0;
@@ -202,6 +202,9 @@ static int turnCount = 0;
 void setup() {
   Serial.begin(9600); 
   mySerial.begin(9600);
+
+  //Serial.begin(57600);
+  //mySerial.begin(57600);
   
   servo[0].attach(17);
   servo[0].write(85);
@@ -234,9 +237,6 @@ void setup() {
   servo[7].attach(2);
   servo[7].write(90);
   delay(200);
-  
-  //Serial.begin(57600);
-  //mySerial.begin(57600);
    
   locomotion(stand);
   randomSeed(analogRead(0));
@@ -268,7 +268,7 @@ void waySqware(){
     if (stepTotal == 20){
        auto_mode = false;  // Останавливаемся после завершения маршрута квадрата
        prev_action = action = SLEEP;
-       Serial.println("Square path complete");
+       //Serial.println("Square path complete");
     }
 
     delay(300);  
@@ -309,14 +309,14 @@ void robot_stand(){
 void loop() {
   if (mySerial.available () > 0) {
     action = mySerial.read();
-    Serial.println(action);            
+    //Serial.println(action);            
     
     switch (action) {
       case CONTROL_ON: auto_mode = false; action = STAND;
-        Serial.println("control on");
+        //Serial.println("control on");
         break;
       case CONTROL_OFF: auto_mode = true; action = STAND;
-        Serial.println("control off");
+        //Serial.println("control off");
         break;
     }
   }
@@ -348,15 +348,15 @@ void loop() {
       case FORWARD: if (action != prev_action) {
           prev_action = action;
           //locomotion(stand);
-          Serial.println("forward");
+          //Serial.println("forward");
         }
         locomotion(forward);
-        Serial.println("f forward");
+        //Serial.println("f forward");
         break;
       case BACKWARD: if (action != prev_action) {
           prev_action = action;
           //locomotion(stand);
-          Serial.println("backward");
+          //Serial.println("backward");
         }
         locomotion(backward);
         break;
@@ -364,7 +364,7 @@ void loop() {
       case LEFT: if (action != prev_action) {
           prev_action = action;
           //locomotion(stand);
-          Serial.println("left");
+          //Serial.println("left");
         }
         locomotion(left);
         break;
@@ -372,7 +372,7 @@ void loop() {
       case RIGHT: if (action != prev_action) {
           prev_action = action;
           //locomotion(stand);
-          Serial.println("right");
+          //Serial.println("right");
         }
         locomotion(right);
         break;

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -38,10 +39,14 @@ class ControlActivity: AppCompatActivity(){
 
         ConnectToDevice(this).execute()
 
-        setButtonTouchListener( btn_forward, 'W') // apertando "a" no app, ativa o led no arduino
-        setButtonTouchListener( btn_back, 'S') // apertando "a" no app, ativa o led no arduino
-        setButtonTouchListener( btn_left, 'D') // apertando "a" no app, ativa o led no arduino
-        setButtonTouchListener( btn_right, 'A') // apertando "a" no app, ativa o led no arduino
+        setButtonTouchListener( btn_forward, 'W')
+        setButtonTouchListener( btn_back, 'S')
+        setButtonTouchListener( btn_left, 'D')
+        setButtonTouchListener( btn_right, 'A')
+
+        setButtonSpeedTouchListener( btn_speed_slow, 'Z')
+        setButtonSpeedTouchListener( btn_speed_medium, 'Y')
+        setButtonSpeedTouchListener( btn_speed_fast, 'X')
 
 
         btn_stand.setOnClickListener {
@@ -65,39 +70,33 @@ class ControlActivity: AppCompatActivity(){
     }
     private fun setButtonTouchListener(button: View, command: Char) {
         button.setOnClickListener { event ->
-                sendCommand(command)
+            sendCommand(command)
+            btn_forward.setBackgroundResource(android.R.drawable.btn_default);
+            btn_back.setBackgroundResource(android.R.drawable.btn_default);
+            btn_left.setBackgroundResource(android.R.drawable.btn_default);
+            btn_right.setBackgroundResource(android.R.drawable.btn_default);
+
+            button.setBackgroundColor(Color.BLUE)
         }
-//        button.setOnTouchListener { _, event ->
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    sendCommand(command)
-//                    true
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                    //sendCommand('F') // Остановка при отпускании кнопки
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
 
-//    private fun sendCommand(command: Char) {
-//        try {
-//            outputStream?.write(command.toInt())
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//            Toast.makeText(this, "Ошибка отправки команды", Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun setButtonSpeedTouchListener(button: View, command: Char) {
+        button.setOnClickListener { event ->
+            sendCommand(command)
+            btn_speed_slow.setBackgroundResource(android.R.drawable.btn_default);
+            btn_speed_medium.setBackgroundResource(android.R.drawable.btn_default);
+            btn_speed_fast.setBackgroundResource(android.R.drawable.btn_default);
+
+            button.setBackgroundColor(Color.BLUE)
+        }
+    }
+
 
     private fun sendCommand(input: Char){
         if(m_bluetoothSocket != null){
             try{
                 var ddd = input.toInt()
-                //for(i in 1..5000) {
-                    m_bluetoothSocket!!.outputStream.write(ddd)
-                //}
+                m_bluetoothSocket!!.outputStream.write(ddd)
             }catch(e: IOException){
                 Toast.makeText(this, "Error send command!", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
@@ -109,20 +108,6 @@ class ControlActivity: AppCompatActivity(){
         if(m_bluetoothSocket != null){
             try{
                 m_bluetoothSocket!!.outputStream.write(input.toByteArray())
-            }catch(e: IOException){
-                Toast.makeText(this, "Error send command!", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
-            }
-        }
-    }
-
-
-    private fun sendCommandMany(input: String){
-        if(m_bluetoothSocket != null){
-            try{
-                for(i in 1..2000) {
-                    m_bluetoothSocket!!.outputStream.write(input.toByteArray())
-                }
             }catch(e: IOException){
                 Toast.makeText(this, "Error send command!", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()

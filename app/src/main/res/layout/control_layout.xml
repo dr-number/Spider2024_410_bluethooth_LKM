@@ -40,6 +40,30 @@
             android:weightSum="2">
 
         <Button
+                android:id="@+id/btn_control_on"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="control on"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+
+        <Button
+                android:id="@+id/btn_control_off"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="control off"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
                 android:id="@+id/btn_stand"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -57,28 +81,39 @@
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
     </LinearLayout>
-
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Speed"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
         <Button
-                android:id="@+id/btn_control_on"
+                android:id="@+id/btn_speed_slow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="control on"
+                android:text="slow"
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
 
         <Button
-                android:id="@+id/btn_control_off"
+                android:id="@+id/btn_speed_medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="control off"
+                android:text="medium"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+        <Button
+                android:id="@+id/btn_speed_fast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="fast"
                 android:textSize="18sp"
                 android:layout_margin="8dp" />
     </LinearLayout>
