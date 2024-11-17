@@ -18,6 +18,14 @@ SoftwareSerial mySerial(11, 12); // RX, TX Пины для блютуз моду
 
 #define ROBOT_SLEEP 'R'
 
+#define SPEED_SLOW 'Z'
+#define SPEED_MEDIUM 'Y'
+#define SPEED_FAST 'X'
+
+#define SPEED_PAUSE_SLOW 500
+#define SPEED_PAUSE_MEDIUM 250
+#define SPEED_PAUSE_FAST 100
+
 //#define LEG_0 'k'
 //#define LEG_1 'i'
 //#define LEG_2 'o'
@@ -198,6 +206,7 @@ unsigned long lastReceivedTime; // Время последнего принят�
 static int stepCount = 0;
 static int stepTotal = 0;
 static int turnCount = 0;
+static int speedPause = SPEED_PAUSE_SLOW;
 
 void setup() {
   Serial.begin(9600); 
@@ -340,7 +349,20 @@ void loop() {
   }
 
   if (1) {
-//    action = LEFT;  
+    switch (action) {
+      case SPEED_SLOW:
+      	speedPause = SPEED_PAUSE_SLOW;
+        action = prev_action;
+        break;
+      case SPEED_MEDIUM:
+        speedPause = SPEED_PAUSE_MEDIUM;
+        action = prev_action;
+        break;
+      case SPEED_FAST:
+      	speedPause = SPEED_PAUSE_FAST;
+        action = prev_action;
+        break;
+     }
     if(!checkContains(comands, sizeof(comands)/sizeof(comands[0]), action)){
         action = prev_action;
     }
@@ -376,73 +398,7 @@ void loop() {
         }
         locomotion(right);
         break;
-
-       /*
-       case NACL_VNIZ: if (action != prev_action) {
-         if(prev_action != NACL_VVERH){
-         //locomotion(stand);
-         k=90;
-         j=90; 
-         }          
-         prev_action = action;                  
-        }
-        if ( k<120){
-         k++;         
-         servo[7].write(k);
-         delay(50);                        
-        }
-        if ( j>60){
-         j--;         
-         servo[1].write(j);
-         delay(50);                        
-        }
-        break;
-
-
-       case NACL_VVERH: if (action != prev_action) {
-         if(prev_action != NACL_VNIZ){
-         //locomotion(stand);
-         k=90;
-         j=90; 
-         }         
-         prev_action = action;                  
-       }
-       if ( k>70){
-        k--;        
-        servo[7].write(k);
-        delay(50);                        
-       }
-       if ( j<110){
-        j++;        
-        servo[1].write(j);
-        delay(50);                        
-       }
-       break;
-       */
-       //case LEG_1: if (action != prev_action) {
-       //   prev_action = action;
-       //   locomotion(stand);
-       //   //Serial.println("leg_1");
-       // }
-       // locomotion(leg_1);        
-       // break;
-
-       //case LEG_2: if (action != prev_action) {
-       //   prev_action = action;
-       //   locomotion(stand);
-       //   //Serial.println("leg_2");
-       // }
-       // locomotion(leg_2);        
-       // break;
-        
-       //case LEG_3: if (action != prev_action) {
-       //   prev_action = action;
-       //   locomotion(stand);
-       //   //Serial.println("leg_3");
-       // }
-       // locomotion(leg_3);        
-       // break;
-        
+       
        case SLEEP: if (action != prev_action) {
           prev_action = action;
           locomotion(stand);
@@ -503,5 +459,5 @@ void locomotion(angle_t angles[]) {
      // Serial.println();
     
   }
-  delay(500);
+  delay(speedPause);
 }

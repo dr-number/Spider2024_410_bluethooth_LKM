@@ -19,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.control_layout.*
 import java.io.IOException
 import java.util.*
+import android.widget.CompoundButton
+
+
+
 
 
 class ControlActivity: AppCompatActivity(){
@@ -37,6 +41,8 @@ class ControlActivity: AppCompatActivity(){
         setContentView(R.layout.control_layout)
         m_address = intent.getStringExtra(MainActivity.EXTRA_ADDRESS).toString()
 
+        btn_right.isEnabled = false
+
         ConnectToDevice(this).execute()
 
         setButtonTouchListener( btn_forward, 'W')
@@ -51,6 +57,10 @@ class ControlActivity: AppCompatActivity(){
 
         btn_stand.setOnClickListener {
             sendCommand("F") // Начать выполнение команды при нажатии кнопки
+            btn_forward.setBackgroundResource(android.R.drawable.btn_default);
+            btn_back.setBackgroundResource(android.R.drawable.btn_default);
+            btn_left.setBackgroundResource(android.R.drawable.btn_default);
+            btn_right.setBackgroundResource(android.R.drawable.btn_default);
         }
         btn_sleep.setOnClickListener {
             sendCommand("R") // Начать выполнение команды при нажатии кнопки
@@ -63,6 +73,9 @@ class ControlActivity: AppCompatActivity(){
             sendCommand("P") // Начать выполнение команды при нажатии кнопки
         }
 
+        on_right.setOnCheckedChangeListener { buttonView, isChecked ->
+            btn_right.isEnabled = isChecked
+        }
 
         btn_disconnect.setOnClickListener{ disconnect() }
         btn_connect.setOnClickListener{ ConnectToDevice(this).execute() }

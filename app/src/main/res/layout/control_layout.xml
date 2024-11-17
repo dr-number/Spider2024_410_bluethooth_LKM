@@ -154,11 +154,12 @@
                     android:layout_margin="8dp"
                     android:contentDescription="up" />
 
-            <View
+            <Switch
+                    android:id="@+id/on_right"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:visibility="invisible" />
+                    />
         </LinearLayout>
 
         <!-- Стрелки влево и вправо -->
@@ -194,7 +195,8 @@
                     app:srcCompat="@drawable/ic_baseline_chevron_right_40"
                     android:tint="@color/colorBlack"
                     android:layout_margin="8dp"
-                    android:contentDescription="right" />
+                    android:contentDescription="right"
+                    />
         </LinearLayout>
 
         <!-- Стрелка вниз -->
