@@ -52,14 +52,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Для Android 12 и выше
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            if (checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
-//                checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-//                requestPermissions(arrayOf(
-//                    Manifest.permission.BLUETOOTH_SCAN,
-//                    Manifest.permission.BLUETOOTH_CONNECT), REQUEST_BLUETOOTH_PERMISSION)
-//            }
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT), REQUEST_BLUETOOTH_PERMISSION)
+            }
+        }
 
         pairedDeviceList()
         select_device_refresh.setOnClickListener{ pairedDeviceList() }
