@@ -22,7 +22,7 @@
 </p>
 </br>
 <p align="center">
-   <img src="https://raw.githubusercontent.com/dr-number/prog_lan_lar_larionov_lab_1_linear_processing/master/screens/5_in_ground_3.gif">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/5_in_ground_3.gif" width="552">
 </p>
 
 **Управление с Android**
