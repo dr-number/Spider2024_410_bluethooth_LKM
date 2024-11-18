@@ -27,7 +27,7 @@
 
 **Управление с Android**
 <p align="center">
-   <img src="https://raw.githubusercontent.com/dr-number/prog_lan_lar_larionov_lab_1_linear_processing/master/screens/6_robot_and_pult.gif">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/6_robot_and_pult.gif" width="552">
 </p>
 
 
