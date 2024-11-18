@@ -9,7 +9,7 @@
 
 **На столе**
 <p align="center">
-   <img src="https://raw.githubusercontent.com/dr-number/prog_lan_lar_larionov_lab_1_linear_processing/master/screens/2_in_table.gif" width="552">
+   <img src="https://raw.githubusercontent.com/dr-number/prog_lan_lar_larionov_lab_1_linear_processing/master/screens/2_in_table.gif" style="width: 552px;">
 </p>
 
 **На полу**
