@@ -22,7 +22,7 @@
 </p>
 </br>
 <p align="center">
-   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/5_in_ground_3.gif" width="552">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/5_in_ground_3.gif" width="640">
 </p>
 
 **Управление с Android**
