@@ -18,7 +18,7 @@
 </p>
 </br>
 <p align="center">
-   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/4_in_ground_2.gif" width="552">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/4_in_ground_2.gif" width="222">
 </p>
 </br>
 <p align="center">
