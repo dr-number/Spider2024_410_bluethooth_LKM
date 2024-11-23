@@ -14,7 +14,7 @@
 
 **На полу**
 <p align="center">
-   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/3_in_ground_1.gif" width="552">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/3_in_ground_1.gif" width="268">
 </p>
 </br>
 <p align="center">
