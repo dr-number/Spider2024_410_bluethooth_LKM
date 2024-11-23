@@ -167,14 +167,14 @@ angle_t *left = (angle_t []) {
 angle_t *right = (angle_t []) {
   {LEG_LEFT_BACK_VERTICAL, 50, 0},
   {LEG_RIGHT_FRONT_VERTICAL, 50, 100},
-  {LEG_LEFT_BACK_HORIZONTAL, 50, 0},
-  {LEG_RIGHT_FRONT_HORIZONTAL, 50, 100},
+  {LEG_LEFT_BACK_HORIZONTAL, 50, 30}, // 0 т.к поворот направо невозможен даже в "в воздухе" градусная мера смещена на 30 градусов
+  {LEG_RIGHT_FRONT_HORIZONTAL, 50, 70}, //// 100 градусная мера смещена для синхронности
   {LEG_LEFT_BACK_VERTICAL, 90, 0},
   {LEG_RIGHT_FRONT_VERTICAL, 90, 100},
   {LEG_LEFT_FRONT_VERTICAL, 120, 0},
   {LEG_RIGHT_BACK_VERTICAL, 120, 100},
-  {LEG_LEFT_BACK_HORIZONTAL, 125, 0},
-  {LEG_RIGHT_FRONT_HORIZONTAL, 125, 100},
+  {LEG_LEFT_BACK_HORIZONTAL, 125, 30}, // 0 т.к поворот направо невозможен даже в "в воздухе" градусная мера смещена на 30 градусов
+  {LEG_RIGHT_FRONT_HORIZONTAL, 125, 70}, //// 100 градусная мера смещена для синхронности
   {LEG_LEFT_FRONT_VERTICAL, 90, 0},
   {LEG_RIGHT_BACK_VERTICAL, 90, 100},
   { -1, -1, -1}
