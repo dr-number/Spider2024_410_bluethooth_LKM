@@ -9,7 +9,7 @@
 
 **На столе**
 <p align="center">
-   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/2_in_table.gif" width="552">
+   <img src="https://github.com/dr-number/Spider2024_410_bluethooth_LKM/blob/main/for_read_me/gifs/2_in_table.gif" width="704">
 </p>
 
 **На полу**
