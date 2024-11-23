@@ -1,6 +1,6 @@
 package com.example.spider2024_410_bluethooth_lkm;
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -10,19 +10,12 @@ import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.control_layout.*
 import java.io.IOException
 import java.util.*
-import android.widget.CompoundButton
-
-
-
 
 
 class ControlActivity: AppCompatActivity(){
@@ -45,44 +38,56 @@ class ControlActivity: AppCompatActivity(){
 
         ConnectToDevice(this).execute()
 
-        setButtonTouchListener( btn_forward, 'W')
-        setButtonTouchListener( btn_back, 'S')
-        setButtonTouchListener( btn_left, 'D')
-        setButtonTouchListener( btn_right, 'A')
+        setButtonClickListener( btn_forward, "W")
+        setButtonClickListener( btn_back, "S")
+        setButtonClickListener( btn_left, "D")
+        setButtonClickListener( btn_right, "A")
 
-        setButtonSpeedTouchListener( btn_speed_slow, 'Z')
-        setButtonSpeedTouchListener( btn_speed_medium, 'Y')
-        setButtonSpeedTouchListener( btn_speed_fast, 'X')
+        setButtonSpeedClickListener( btn_speed_slow, "Z")
+        setButtonSpeedClickListener( btn_speed_medium, "Y")
+        setButtonSpeedClickListener( btn_speed_fast, "X")
 
 
         btn_stand.setOnClickListener {
-            sendCommand("F") // Начать выполнение команды при нажатии кнопки
+            sendCommand("F")
             btn_forward.setBackgroundResource(android.R.drawable.btn_default);
             btn_back.setBackgroundResource(android.R.drawable.btn_default);
             btn_left.setBackgroundResource(android.R.drawable.btn_default);
             btn_right.setBackgroundResource(android.R.drawable.btn_default);
         }
         btn_sleep.setOnClickListener {
-            sendCommand("R") // Начать выполнение команды при нажатии кнопки
+            sendCommand("R")
         }
 
         btn_control_on.setOnClickListener {
-            sendCommand("M") // Начать выполнение команды при нажатии кнопки
+            sendCommand("M")
         }
         btn_control_off.setOnClickListener {
-            sendCommand("P") // Начать выполнение команды при нажатии кнопки
+            sendCommand("P")
         }
 
-        on_right.setOnCheckedChangeListener { buttonView, isChecked ->
+        on_right.setOnCheckedChangeListener { _, isChecked ->
             btn_right.isEnabled = isChecked
         }
 
         btn_disconnect.setOnClickListener{ disconnect() }
         btn_connect.setOnClickListener{ ConnectToDevice(this).execute() }
 
+        about_authors.setOnLongClickListener{
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle("Робота-паука разработали")
+            alertDialogBuilder.setMessage("Студенты группы 410 з-аз:\nЛарионов;\nКорабельников;\nМякишев")
+            alertDialogBuilder.setNegativeButton("OK") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog?.show()
+            return@setOnLongClickListener true
+        }
+
     }
-    private fun setButtonTouchListener(button: View, command: Char) {
-        button.setOnClickListener { event ->
+    private fun setButtonClickListener(button: View, command: String) {
+        button.setOnClickListener {
             sendCommand(command)
             btn_forward.setBackgroundResource(android.R.drawable.btn_default);
             btn_back.setBackgroundResource(android.R.drawable.btn_default);
@@ -93,29 +98,16 @@ class ControlActivity: AppCompatActivity(){
         }
     }
 
-    private fun setButtonSpeedTouchListener(button: View, command: Char) {
-        button.setOnClickListener { event ->
+    private fun setButtonSpeedClickListener(button: View, command: String) {
+        button.setOnClickListener {
             sendCommand(command)
             btn_speed_slow.setBackgroundResource(android.R.drawable.btn_default);
             btn_speed_medium.setBackgroundResource(android.R.drawable.btn_default);
             btn_speed_fast.setBackgroundResource(android.R.drawable.btn_default);
-
             button.setBackgroundColor(Color.BLUE)
         }
     }
 
-
-    private fun sendCommand(input: Char){
-        if(m_bluetoothSocket != null){
-            try{
-                var ddd = input.toInt()
-                m_bluetoothSocket!!.outputStream.write(ddd)
-            }catch(e: IOException){
-                Toast.makeText(this, "Error send command!", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
-            }
-        }
-    }
 
     private fun sendCommand(input: String){
         if(m_bluetoothSocket != null){

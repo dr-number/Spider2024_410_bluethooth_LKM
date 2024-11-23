@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     val REQUEST_LOCATION_PERMISSION = 3
 
     companion object{
-        val EXTRA_ADDRESS: String = "Device_address"
+        const val EXTRA_ADDRESS: String = "Device_address"
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
