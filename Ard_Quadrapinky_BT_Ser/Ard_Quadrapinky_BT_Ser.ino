@@ -24,53 +24,37 @@ SoftwareSerial mySerial(PIN_BLUETOOTH_RX, PIN_BLUETOOTH_TX);
 #define LEG_RIGHT_BACK_HORIZONTAL 6
 #define LEG_RIGHT_BACK_VERTICAL 7
 
-
-#define TIMEOUT 3000
-
 #define FORWARD 'W'
 #define BACKWARD 'S'
 #define LEFT 'D'
 #define RIGHT 'A'
 #define STAND 'F'
-#define STANDD 'G'
-#define SLEEP 'K'
-#define NACL_VNIZ 'E'
-//#define NACL_VVERH 'R'
 
-#define ROBOT_SLEEP 'R'
+#define SLEEP 'R'
 #define SPEED_SLOW 'Z'
 #define SPEED_MEDIUM 'Y'
 #define SPEED_FAST 'X'
+
+#define CONTROL_OFF 'P'
+#define CONTROL_ON  'M'
 
 #define SPEED_PAUSE_SLOW 500
 #define SPEED_PAUSE_MEDIUM 200
 #define SPEED_PAUSE_FAST 100
 
-//#define LEG_0 'k'
-//#define LEG_1 'i'
-//#define LEG_2 'o'
-//#define LEG_3 'l'
+#define DELAY_ATTACH 200
+#define TIMEOUT 3000
 
-
-#define CONTROL_OFF 'P'
-#define CONTROL_ON  'M'
-
-char comands [11] = {
+char comands [8] = {
   FORWARD,
   BACKWARD,
   LEFT,
   RIGHT,
   STAND,
-  STANDD,
   SLEEP,
-  NACL_VNIZ,
-  ROBOT_SLEEP,
   CONTROL_OFF,
   CONTROL_ON,
 };
-
-int k=90;
-int j=90;
 
 typedef struct {
   int index;
@@ -90,39 +74,6 @@ angle_t *sleep = (angle_t []) {
   { -1, -1, -1}
 };
 
-angle_t *nacl_vniz = (angle_t []) {
-  {LEG_LEFT_BACK_HORIZONTAL, 125, 0},
-  {LEG_LEFT_FRONT_HORIZONTAL, 55, 0},
-  {LEG_RIGHT_FRONT_HORIZONTAL, 125, 0},
-  {LEG_RIGHT_BACK_HORIZONTAL, 55, 0},  
-  {LEG_LEFT_FRONT_VERTICAL, 90, 0},
-  {LEG_RIGHT_FRONT_VERTICAL, 90, 150},  
-  { -1, -1, -1}
-};
-
-angle_t *leg_1 = (angle_t []) {
-  {LEG_LEFT_FRONT_HORIZONTAL, 10, 2000},
-  {LEG_LEFT_FRONT_HORIZONTAL, 110, 2000},
-  {LEG_LEFT_FRONT_VERTICAL, 70, 2000},
-  {LEG_LEFT_FRONT_VERTICAL, 140, 2000},
-  { -1, -1, -1}
-};
-
-angle_t *leg_2 = (angle_t []) {
-  {LEG_RIGHT_FRONT_HORIZONTAL, 70, 2000},
-  {LEG_RIGHT_FRONT_HORIZONTAL, 170, 2000},
-  {LEG_RIGHT_FRONT_VERTICAL, 120, 2000},
-  {LEG_RIGHT_FRONT_VERTICAL, 50, 2000},
-  { -1, -1, -1}
-};
-
-angle_t *leg_3 = (angle_t []) {
-  {LEG_RIGHT_BACK_HORIZONTAL, 10, 2000},
-  {LEG_RIGHT_BACK_HORIZONTAL, 110, 2000},
-  {LEG_RIGHT_BACK_VERTICAL, 70, 2000},
-  {LEG_RIGHT_BACK_VERTICAL, 140, 2000},
-  { -1, -1, -1}
-};
 
 angle_t *forward = (angle_t []) {
   {LEG_LEFT_BACK_HORIZONTAL, 140, 0},
@@ -148,7 +99,6 @@ angle_t *forward = (angle_t []) {
 };
 
 angle_t *left = (angle_t []) {
-  //{LEG_LEFT_FRONT_VERTICAL, 120, 0},
   {LEG_RIGHT_FRONT_HORIZONTAL, 130, 0},
   {LEG_RIGHT_BACK_VERTICAL, 130, 100},
   {LEG_LEFT_FRONT_HORIZONTAL, 100, 0},
@@ -217,11 +167,9 @@ angle_t *stand = (angle_t []) {
 void locomotion(angle_t angles[]);
 
 Servo servo[8];
-unsigned long cur_time, prev_time;
 char action = '\0';
 char prev_action = '\0';
 boolean auto_mode = false; // Сменить на true, есле нужен авто-режим сразу после включения
-unsigned long lastReceivedTime; // Время последнего принятого действия
 
 static int stepCount = 0;
 static int stepTotal = 0;
@@ -233,43 +181,32 @@ void setup() {
   mySerial.begin(SERIAL_BEGIN);
   
   servo[LEG_LEFT_BACK_HORIZONTAL].attach(PIN_LEG_LEFT_BACK_HORIZONTAL);
-  servo[LEG_LEFT_BACK_HORIZONTAL].write(85);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_LEFT_BACK_VERTICAL].attach(PIN_LEG_LEFT_BACK_VERTICAL);
-  servo[LEG_LEFT_BACK_VERTICAL].write(90);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_LEFT_FRONT_HORIZONTAL].attach(PIN_LEG_LEFT_FRONT_HORIZONTAL);
-  servo[LEG_LEFT_FRONT_HORIZONTAL].write(85);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_LEFT_FRONT_VERTICAL].attach(PIN_LEG_LEFT_FRONT_VERTICAL);
-  servo[LEG_LEFT_FRONT_VERTICAL].write(90);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_RIGHT_FRONT_HORIZONTAL].attach(PIN_LEG_RIGHT_FRONT_HORIZONTAL);
-  servo[LEG_RIGHT_FRONT_HORIZONTAL].write(85);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_RIGHT_FRONT_VERTICAL].attach(PIN_LEG_RIGHT_FRONT_VERTICAL);
-  servo[LEG_RIGHT_FRONT_VERTICAL].write(90);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_RIGHT_BACK_HORIZONTAL].attach(PIN_LEG_RIGHT_BACK_HORIZONTAL);
-  servo[LEG_RIGHT_BACK_HORIZONTAL].write(85);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
   
   servo[LEG_RIGHT_BACK_VERTICAL].attach(PIN_LEG_RIGHT_BACK_VERTICAL);
-  servo[LEG_RIGHT_BACK_VERTICAL].write(90);
-  delay(speedPause);
+  delay(DELAY_ATTACH);
    
-  locomotion(stand);
-  randomSeed(analogRead(0));
-  cur_time = prev_time = millis();
+  robot_stand();
   prev_action = action = SLEEP; //Было FORWARD
 
-  lastReceivedTime = millis(); // Инициализируем время последнего принятого действия
   delay(TIMEOUT);
 }
 
@@ -305,26 +242,13 @@ void robot_sleep(){
 
 void robot_stand(){
   servo[LEG_LEFT_BACK_HORIZONTAL].write(85);
-  delay(speedPause);
-  
-  servo[LEG_LEFT_BACK_VERTICAL].write(90);
-  delay(speedPause);
-  
   servo[LEG_LEFT_FRONT_HORIZONTAL].write(85);
-  delay(speedPause);
-  
-  servo[LEG_LEFT_FRONT_VERTICAL].write(90);
-  delay(speedPause);
-  
   servo[LEG_RIGHT_FRONT_HORIZONTAL].write(85);
-  delay(speedPause);
-  
-  servo[LEG_RIGHT_FRONT_VERTICAL].write(90);
-  delay(speedPause);
-  
   servo[LEG_RIGHT_BACK_HORIZONTAL].write(85);
   delay(speedPause);
-  
+  servo[LEG_LEFT_BACK_VERTICAL].write(90);
+  servo[LEG_LEFT_FRONT_VERTICAL].write(90);
+  servo[LEG_RIGHT_FRONT_VERTICAL].write(90);
   servo[LEG_RIGHT_BACK_VERTICAL].write(90);
   delay(speedPause);
   locomotion(stand);
@@ -399,10 +323,6 @@ void loop() {
         robot_stand();
         action = '\0';
         prev_action = '\0';
-        break;
-
-     case ROBOT_SLEEP:
-        robot_sleep();
         break;
     }
   }
